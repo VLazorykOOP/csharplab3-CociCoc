@@ -59,6 +59,49 @@ namespace Lab3CSharp
         }
     }
 
+    internal class Person
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+
+        public virtual void Show()
+        {
+            Console.WriteLine($"Name: {Name}, Age: {Age}");
+        }
+    }
+
+    internal class Student : Person
+    {
+        public string StudentID { get; set; }
+        public string Major { get; set; }
+
+        public override void Show()
+        {
+            Console.WriteLine($"Name: {Name}, Age: {Age}, Student ID: {StudentID}, Major: {Major}");
+        }
+    }
+
+    internal class Teacher : Person
+    {
+        public string Department { get; set; }
+        public string Subject { get; set; }
+
+        public override void Show()
+        {
+            Console.WriteLine($"Name: {Name}, Age: {Age}, Department: {Department}, Subject: {Subject}");
+        }
+    }
+
+    internal class DepartmentHead : Teacher
+    {
+        public int YearsOfExperience { get; set; }
+
+        public override void Show()
+        {
+            Console.WriteLine($"Name: {Name}, Age: {Age}, Department: {Department}, Subject: {Subject}, Years of Experience: {YearsOfExperience}");
+        }
+    }
+
     internal class Program
     {
         static void Main(string[] args)
@@ -97,6 +140,26 @@ namespace Lab3CSharp
                 }
 
                 Console.WriteLine();
+            }
+
+            // Вправа 2
+            // Створення масиву об'єктів базового класу Person
+            Person[] people = new Person[]
+            {
+                new Student { Name = "John", Age = 20, StudentID = "S12345", Major = "Computer Science" },
+                new Student { Name = "Alice", Age = 21, StudentID = "S23456", Major = "Mathematics" },
+                new Teacher { Name = "Mr. Smith", Age = 35, Department = "Computer Science", Subject = "Programming" },
+                new Teacher { Name = "Ms. Johnson", Age = 40, Department = "Mathematics", Subject = "Calculus" },
+                new DepartmentHead { Name = "Dr. Brown", Age = 50, Department = "Computer Science", Subject = "Computer Science", YearsOfExperience = 20 },
+                new DepartmentHead { Name = "Dr. White", Age = 55, Department = "Mathematics", Subject = "Mathematics", YearsOfExperience = 25 }
+            };
+
+            // Виведення масиву впорядкованого за віком
+            Console.WriteLine("People sorted by age:");
+            Array.Sort(people, (x, y) => x.Age.CompareTo(y.Age));
+            foreach (var person in people)
+            {
+                person.Show();
             }
         }
     }
